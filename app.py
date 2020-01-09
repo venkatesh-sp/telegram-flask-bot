@@ -12,18 +12,14 @@ telegram_url = f"https://api.telegram.org/bot{token}/"
 
 @app.route('/msg',methods=['GET','POST']) 
 def messages():
-    if request.method == "POST":
-
-        
-
-        
+    if request.method == "POST":      
 
         # converting response data into json
         response = request.get_json()
         print(response)
         data = {
             'chat_id': response['message']['chat']['id'],
-            'text': "Thanks for the interest with our first bot"
+            'text': F"Thanks {response['message']['chat']['first_name']}for the interest with our first bot"
         }
         # requesting telergram api with formatted postd data
         # Bot will send message to dedicated user based on chat_id
