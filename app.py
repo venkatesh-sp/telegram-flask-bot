@@ -16,17 +16,21 @@ def messages():
 
         
 
-        # requesting telergram api with formatted postd data
-        # Bot will send message to dedicated user based on chat_id
-        # Based on chat_id, dedicated user will recieve message from bot
-        # req = requests.post(telegram_url+"sendMessage",data=data)
+        
 
         # converting response data into json
         response = request.get_json()
         print(response)
-        with open('data.txt', 'w') as outfile:
-            json.dump(response, outfile)
-        return jsonify(response)
+        data = {
+            'chat_id': response['chat']['id'],
+            'text': "Thanks for the interest with our first bot"
+        }
+        # requesting telergram api with formatted postd data
+        # Bot will send message to dedicated user based on chat_id
+        # Based on chat_id, dedicated user will recieve message from bot
+        req = requests.post(telegram_url+"sendMessage",data=data)
+
+        return jsonify(req.json())
         
 @app.route('/setwebhook',methods=['GET','POST'])
 def setWebhook():
