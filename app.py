@@ -14,30 +14,19 @@ telegram_url = f"https://api.telegram.org/bot{token}/"
 def messages():
     if request.method == "POST":
 
-        # formatting post data into dict
-        data = {
-            "chat_id":request.values.get('chat_id'),
-            "text":request.values.get('text')
-        }
+        
 
         # requesting telergram api with formatted postd data
         # Bot will send message to dedicated user based on chat_id
         # Based on chat_id, dedicated user will recieve message from bot
-        req = requests.post(telegram_url+"sendMessage",data=data)
+        # req = requests.post(telegram_url+"sendMessage",data=data)
 
         # converting response data into json
-        response = req.json()
+        response = request.json()
+        with open('data.txt', 'w') as outfile:
+            json.dump(response, outfile)
         return jsonify(response)
-    elif request.method == "GET":
-
-        # requesting telegram api for latest updates in the bot
-        req = requests.post(telegram_url+"getUpdates")
-
-        # converting response into json
-        response = req.json()
-
-        # returns response from telegram api for requesting latest updates
-        return jsonify(response)
+        
 @app.route('/setwebhook',methods=['GET','POST'])
 def setWebhook():
     if request.method == "GET":
