@@ -22,7 +22,7 @@ def messages():
         # req = requests.post(telegram_url+"sendMessage",data=data)
 
         # converting response data into json
-        response = request.values.__dict__
+        response = request.values.get('update_id','none')
         print(response)
         with open('data.txt', 'w') as outfile:
             json.dump(response, outfile)
