@@ -27,21 +27,6 @@ def messages():
 
         # converting response data into json
         response = req.json()
-
-        print(response)
-        
-        # defining variables from formatted json
-        # response = response['result']
-        # message_id = response['message_id']
-        # message = response['text']
-        # date = response['date']
-        # chat_id = response['chat']['id']
-        # chat_user_first_name = response['chat']['first_name']
-        # chat_user_last_name = response['chat']['last_name']
-        # chat_username = response['chat']['username']
-        # chat_type = response['chat']['type']
-
-        # returns response from telegram api for sending message to the user
         return jsonify(response)
     elif request.method == "GET":
 
@@ -53,6 +38,17 @@ def messages():
 
         # returns response from telegram api for requesting latest updates
         return jsonify(response)
+@app.route('/setwebhook',methods=['GET','POST'])
+def setWebhook():
+    if request.method == "GET":
+        req = requests.post(telegram_url+"setWebhook",params={'url':"https://telegram-flask-bot.herokuapp.com/msg"})
+        return jsonify(req.json())
+
+@app.route('/getwebhook',methods=['GET','POST'])
+def getWebhook():
+    if request.method == "GET":
+        req = requests.post(telegram_url+"getWebhookInfo")
+        return jsonify(req.json())
 
 
 if __name__ == '__main__':
