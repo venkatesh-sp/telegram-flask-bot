@@ -23,6 +23,7 @@ def messages():
 
         # converting response data into json
         response = request.__dict__
+        print(response)
         with open('data.txt', 'w') as outfile:
             json.dump(response, outfile)
         return jsonify(response)
