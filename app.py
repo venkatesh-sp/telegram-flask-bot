@@ -22,7 +22,7 @@ def messages():
         response = request.get_json()
         print(response)
         data = {
-            'chat_id': response['chat']['id'],
+            'chat_id': response['message']['chat']['id'],
             'text': "Thanks for the interest with our first bot"
         }
         # requesting telergram api with formatted postd data
